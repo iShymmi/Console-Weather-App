@@ -35,7 +35,14 @@ public class WeatherDAO {
     private Weather parseJSONDataToWeatherClass(String jsonString){
 
         Gson gson = new Gson();
+        Weather weather;
 
-        return gson.fromJson(jsonString, Weather.class);
+        weather = gson.fromJson(jsonString, Weather.class);
+
+        if(weather.getLocation() == null){
+            return null;
+        }
+
+        return weather;
     }
 }

@@ -4,6 +4,8 @@ import com.google.gson.annotations.JsonAdapter;
 import com.shymmi.weatherApp.json_adapter.DateTimeAdapter;
 import lombok.Getter;
 
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Getter
@@ -21,10 +23,23 @@ public class Current {
 
     @Override
     public String toString() {
-        return "Last update: " +last_updated
-                +"\nTemperature: " +temp_c
-                +"\nFeels like: " +feelslike_c
-                +"\nWind: " +wind_mph
-                +"\nPressure: " +pressure_mb;
+        return printWeatherInfo(false);
+    }
+
+    public String toString(boolean imperial){
+        if(!imperial){
+            return this.toString();
+        }
+
+        return printWeatherInfo(true);
+    }
+    
+    private String printWeatherInfo(boolean imperial){
+        SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        return "Last update: " +dateTimeFormatter.format(last_updated)
+                +"\nTemperature: " + ((imperial) ? (temp_f + " F") : (temp_c + " C"))
+                +"\nFeels like: " + ((imperial) ? (feelslike_f + " F") : (feelslike_c + " C"))
+                +"\nWind: " +wind_mph + " mph"
+                +"\nPressure: " +pressure_mb + " mb";
     }
 }

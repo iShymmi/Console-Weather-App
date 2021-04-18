@@ -11,7 +11,6 @@ public class WeatherServiceImpl implements WeatherService {
 
     public WeatherServiceImpl() {
         ConnectionConfig connectionConfig = ConnectionConfig.getInstance();
-
         weatherDAO = new WeatherDAO(connectionConfig.getKey(), connectionConfig.getHost());
     }
 

@@ -1,5 +1,8 @@
 package com.shymmi.weatherApp.model;
 
+import lombok.Getter;
+
+@Getter
 public class Day {
 
     private double maxtemp_c;

@@ -43,6 +43,6 @@ public class ConnectionConfig {
 
     @Override
     public String toString() {
-        return "Host: " +host +", Key: " +key;
+        return "Host: " +host +"\nKey: " +key;
     }
 }
