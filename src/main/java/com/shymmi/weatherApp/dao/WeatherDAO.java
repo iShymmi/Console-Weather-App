@@ -8,6 +8,7 @@ import kong.unirest.Unirest;
 
 public class WeatherDAO {
 
+    public static final String WEATHERAPI_URL = "https://weatherapi-com.p.rapidapi.com/forecast.json";
     private final String key;
     private final String host;
 
@@ -19,11 +20,11 @@ public class WeatherDAO {
     public Weather getWeatherForDaysByCity(String city, int days) {
         String response = getDataFromWeatherAPI(city,days).getBody().toString();
 
-        return parseJSONDataToWeatherClass(response);
+        return deserializeJSONDataToWeatherClass(response);
     }
 
     private HttpResponse<JsonNode> getDataFromWeatherAPI(String city, int days){
-        HttpResponse<JsonNode> response = Unirest.get("https://weatherapi-com.p.rapidapi.com/forecast.json")
+        HttpResponse<JsonNode> response = Unirest.get(WEATHERAPI_URL)
                                     .queryString("q", city)
                                     .queryString("days", days)
                                     .header("x-rapidapi-key", key)
@@ -32,8 +33,7 @@ public class WeatherDAO {
         return response;
     }
 
-    private Weather parseJSONDataToWeatherClass(String jsonString){
-
+    private Weather deserializeJSONDataToWeatherClass(String jsonString){
         Gson gson = new Gson();
         Weather weather;
 
